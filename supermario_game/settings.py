@@ -20,12 +20,13 @@ PLAYER_JUMP = 20.0 #플레이어 점프 값
 PLATFORM_LIST=[(0, HEIGHT - 80, WIDTH, 80)]
 #x=0 y=800-40:760, 너비 1000,높이 40 초기값
 
-BACKGROUND="C:/python_game/image/background1.png"
-BOTTOM="C:/python_game/image/bottom.png"
+BACKGROUND="image/background1.png"
+BOTTOM="image/bottom.png"
 
-STAND="C:/python_game/image/front.png"
-JUMP="C:/python_game/image/front4.png"
-RIGHTJUMP="C:/python_game/image/running3.png"
-RIGHT="C:/python_game/image/right.png"
-LEFT="C:/python_game/image/left.png"
-LEFTJUMP="C:/python_game/image/leftrunning.png"
+STAND="image/front.png"
+JUMP="image/front4.png"
+RIGHTJUMP="image/running3.png"
+RIGHT="image/right.png"
+LEFT="image/left.png"
+LEFTJUMP="image/leftrunning.png"
+
