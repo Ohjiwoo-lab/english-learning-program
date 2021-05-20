@@ -53,13 +53,6 @@ class LevelFour(tk.Frame):
         wall = tk.PhotoImage(file="image/background5.png")
         self.canvas.create_image(110, 130, anchor=tk.NW, image=wall)
 
-        # 멘트 적힌 상자
-        # self.title = tk.Canvas(self, width=780, height=525, bg="black")
-        # self.title.pack()
-        #
-        # wall2 = tk.PhotoImage(file="image/background4.png")
-        # self.canvas.create_image(130, 400, anchor=tk.NW, image=wall2)
-
         # 타이틀
         img = tk.PhotoImage(file="image/title.png")
         title_label = tk.Label(self, image=img)

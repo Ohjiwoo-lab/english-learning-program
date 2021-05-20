@@ -2,6 +2,7 @@
 import tkinter as tk
 import tkinter.font as tkFont
 from PIL import Image, ImageTk
+import CardMenu
 import CardLevelFour
 
 class LevelThree(tk.Frame):
@@ -26,6 +27,11 @@ class LevelThree(tk.Frame):
         self.canvas.delete("all")
         self.destroy()
         self.master.switch_frame(CardLevelFour.LevelFour(self.master, 3))
+
+    def back_page(self):
+        self.canvas.delete("all")
+        self.destroy()
+        self.master.switch_frame(CardMenu.CardMenuPage)
         
     def gui_frame(self):
 
@@ -46,8 +52,6 @@ class LevelThree(tk.Frame):
         img = tk.PhotoImage(file="image/title.png")
         title_label = tk.Label(self, image=img)
         title_label.place(x=110, y=25)
-
-        img2 = tk.PhotoImage(file="image/box3.png")
     
         xvar = 130
         yvar = 250
@@ -56,7 +60,7 @@ class LevelThree(tk.Frame):
 
         for i in range(5):
             for j in range(6):
-                buttons.append(tk.Button(self, image=img2, width=110, height=78))
+                buttons.append(tk.Button(self, bg='#8FAADC', width=16, height=5))
                 buttons[cardCount].place(x=xvar, y=yvar)
                 xvar = xvar + 125
                 cardCount += 1
@@ -70,6 +74,11 @@ class LevelThree(tk.Frame):
         # 점수 표기 레이블
         tk.Label(self, text='제한 시간(5분)', font=fontStyle2, bg='white', fg='black').place(x=140, y=160)
         tk.Label(self, text='0 / 15', font=fontStyle, bg='white', fg='black').place(x=745, y=143)
+
+        # 중간에 나가기
+        finish_img = tk.PhotoImage(file="image/finish.png")
+        btn = tk.Button(self, image=finish_img, bg='white', width=40, height=40, command=self.back_page, relief='flat')
+        btn.place(x=905, y=705)
 
         # 타이머
         self.createWidgets()
