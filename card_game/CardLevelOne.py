@@ -4,6 +4,7 @@ import tkinter.font as tkFont
 from PIL import Image, ImageTk
 import CardMenu
 import CardLevelFour
+import CardSuccess
 
 class LevelOne(tk.Frame):
 
@@ -28,6 +29,11 @@ class LevelOne(tk.Frame):
         self.canvas.delete("all")
         self.destroy()
         self.master.switch_frame(CardLevelFour.LevelFour(self.master, 1))
+
+    def Success_page(self):
+        self.canvas.delete("all")
+        self.destroy()
+        self.master.switch_frame(CardSuccess.LevelFive)
 
     def back_page(self):
         self.canvas.delete("all")
