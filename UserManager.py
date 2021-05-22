@@ -1,29 +1,166 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu May  6 21:21:26 2021
-
-@author: user
-"""
-
-#사용자 리스트 가져오기
 from UserInfo import User
+from global_vari import gl_user,userlist
+import pymysql
+import copy
 
 class UserManager:
     def __init__(self):
-        self.userlist=[]
+        self.python_db=None
         self.set_user()
         
-    def set_user(self):
-        #파일읽기 간략한 코드
-        with open('C:/Python_project/user.txt','r',encoding='UTF8') as f :
-            lines=f.readlines() #파일전체읽기
-        
-            l=[] #list생성
-            for line in lines : #lines에서 읽은 전체 문자열을 한줄 기준으로 line 리스트에 넣기
-                l.append(line.split(',')) #line의 한줄 ','기준으로 자르기 
+    def set_user(self): #데이터 베이스 연결 및 userlist 초기화
+         self.python_db=pymysql.connect(host='localhost',user='root',password='hdoo517a*',db='python_project',charset='utf8')
+         
+         userlist.clear()
+         try:
+             with self.python_db.cursor() as cursor:
+                 #usernum를 위함
+                 numSql="select *from user"
+                 #username
+                 cursor.execute(numSql)
+                 result =cursor.fetchall()
+                 for i in range(0,len(result)):
+                     user = User()
+                     user.set_init(result[i][0],result[i][1])
+                     userlist.append(user)
+                
+                 wordSql="select *from know_info"
+                 cursor.execute(wordSql)
+                 info=cursor.fetchall()
+                 
+                 for i in range(len(userlist)):
+                     for j in range(len(info)):
+                         if userlist[i].get_userNum() == info[j][0]:
+                             userlist[i].set_know(info[j][1])
+                
+                 wordSql="select *from notknow_info"
+                 cursor.execute(wordSql)
+                 info=cursor.fetchall()
+                 
+                 for i in range(len(userlist)):
+                     for j in range(len(info)):
+                         if userlist[i].get_userNum() == info[j][0]:
+                             userlist[i].set_notKnow(info[j][1])
+                 print(userlist[0].get_notKnow())
+                 print(userlist[0].get_know())
+         finally:
+            self.python_db.close()
+         
+    def insert_user(self):
+        if gl_user is not None :
             
-            self.userlist.clear()
-            for i in range(len(l)):
-                user=User()
-                user.set_init(int(l[i][0]), l[i][1], l[i][2],l[i][3],l[i][4])
-                self.userlist.append(user)
+         self.python_db=pymysql.connect(host='localhost',user='root',password='hdoo517a*',db='python_project',charset='utf8')
+         
+         try:
+             with self.python_db.cursor() as cursor:
+                 #usernum를 위함
+                 #insert과정
+                 userSql="insert into user values (%s,%s)"
+                 user_info=(str(gl_user.get_userNum()),gl_user.get_name())
+                
+                 #username
+                 cursor.execute(userSql,user_info)
+                 self.python_db.commit()
+                 userlist.append(gl_user)
+                
+         finally:
+            self.python_db.close()
+        
+        else:
+            print("user가 없음")
+    def insert_info(self):
+        if gl_user is not None :
+            
+         self.python_db=pymysql.connect(host='localhost',user='root',password='hdoo517a*',db='python_project',charset='utf8')
+         
+         try:
+             with self.python_db.cursor() as cursor:
+                 #usernum를 위함
+                 #insert과정
+                 userSql="insert into user values (%s,%s)"
+                 user_info=(str(gl_user.get_userNum()),gl_user.get_name())
+                
+                 #username
+                 cursor.execute(userSql,user_info)
+                 self.python_db.commit()
+                 userlist.index(gl_user)
+                
+         finally:
+            self.python_db.close()
+        
+        else:
+            print("user가 없음")
+    
+    def insert_knowInfo(self,insert):
+        
+        if gl_user is not None:
+            
+            self.python_db=pymysql.connect(host='localhost',user='root',password='hdoo517a*',db='python_project',charset='utf8')
+            
+            try:
+                with self.python_db.cursor() as cursor:
+                    knowSql="insert into know_info values (%s,%s)"
+                 
+                    know_info=(str(gl_user.get_userNum()),str(insert))
+                    cursor.execute(knowSql,know_info)
+                    self.python_db.commit()
+            finally:
+                self.python_db.close()
+  
+    def delete_knowInfo(self,delete):
+        if gl_user is not None:
+            
+            self.python_db=pymysql.connect(host='localhost',user='root',password='hdoo517a*',db='python_project',charset='utf8')     
+            try:
+                with self.python_db.cursor() as cursor:
+                    knowSql="delete from know_info where know= %s"
+                
+                    for i in range(len(delete)):
+                        cursor.execute(knowSql,delete[i])
+                        self.python_db.commit()
+            
+                    temp = gl_user.get_know()
+                    for i in range(len(temp)):
+                        if temp[i] == delete[i]:
+                            gl_user.delete_know(i)
+                    print(gl_user.get_know())
+            finally:
+                self.python_db.close()
+
+    def insert_notknowInfo(self,insert):
+        
+        if gl_user is not None:
+            
+            self.python_db=pymysql.connect(host='localhost',user='root',password='hdoo517a*',db='python_project',charset='utf8')
+            
+            try:
+                with self.python_db.cursor() as cursor:
+                    knowSql="insert into notknow_info values (%s,%s)"
+                    for i in range(len(insert)):
+                        notknow_info=(str(gl_user.get_userNum()),str(insert[i]))
+                        cursor.execute(knowSql,notknow_info)
+                        self.python_db.commit()
+                    gl_user.set_notKnow(insert)
+                    print(gl_user.get_notKnow())
+            finally:
+                self.python_db.close()
+
+    def insert_notknowInfo_int(self,wrong_num):
+                
+        if gl_user is not None:
+            
+            self.python_db=pymysql.connect(host='localhost',user='root',password='hdoo517a*',db='python_project',charset='utf8')
+            
+            try:
+                with self.python_db.cursor() as cursor:
+                    knowSql="insert into notknow_info values (%s,%s)"
+                    
+                    notknow_info=(str(gl_user.get_userNum()),str(wrong_num))
+                    cursor.execute(knowSql,notknow_info)
+                    self.python_db.commit()
+                    gl_user.set_notKnow(wrong_num)
+                    print(gl_user.get_notKnow())
+            finally:
+                self.python_db.close()
+
+        

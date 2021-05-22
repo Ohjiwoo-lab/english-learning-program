@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sat Apr 24 18:52:32 2021
+Created on Fri May 14 18:49:35 2021
 
 @author: user
 """
+
 
 class Word :
     
@@ -13,12 +14,12 @@ class Word :
         self.__korean=""
         self.__fileLink=""
     
-    def set_init(self,wordNum,english,korean,fileLink) :
+    def set_init(self,wordNum,english,korean,fileLink=None) :
         self.__wordNum=wordNum
         self.__english=english
         self.__korean=korean
         self.__fileLink=fileLink
-        
+    
     def set_english(self,english) :
         self.__english=english
     
@@ -39,4 +40,3 @@ class Word :
     
     def get_fileLink(self):
         return self.__fileLink
-    
