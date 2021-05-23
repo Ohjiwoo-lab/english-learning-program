@@ -20,7 +20,7 @@ PLAYER_JUMP = 20.0 #플레이어 점프 값
 PLATFORM_LIST=[(0, HEIGHT - 80, WIDTH, 80)]
 #x=0 y=800-40:760, 너비 1000,높이 40 초기값
 
-BACKGROUND="C:/english-learning-program/image/super_background2"
+BACKGROUND="C:/english-learning-program/image/super_background2.png"
 BOTTOM="C:/english-learning-program/image/bottom.png"
 
 STAND="C:/english-learning-program/image/front.png"
@@ -28,5 +28,5 @@ JUMP="C:/english-learning-program/image/front4.png"
 RIGHTJUMP="C:/english-learning-program/image/running3.png"
 RIGHT="C:/english-learning-program/image/right.png"
 LEFT="C:/english-learning-program/image/left.png"
-LEFTJUMP="C:/english-learning-program/image/leftrunning.png"
+LEFTJUMP="C:/english-learning-program/image/leftRunning3.png"
 
