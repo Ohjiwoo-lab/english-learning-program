@@ -2,6 +2,7 @@ import tkinter as tk
 import tkinter.font as tkFont
 from PIL import Image, ImageTk
 import CardGameOut
+import CardMenu
 import random
 from global_vari import wordlist
 import CardSuccess
@@ -37,7 +38,12 @@ class LevelTwo(tk.Frame):
         self.canvas.delete("all")
         self.destroy()
         self.master.switch_frame(CardGameOut.GameOut(self.master, 2))
-    
+
+    def back_page(self):
+        self.canvas.delete("all")
+        self.destroy()
+        self.master.switch_frame(CardMenu.CardMenuPage)
+
     def dic_word(self):
      
         for i in range(len(wordlist)):
@@ -151,7 +157,7 @@ class LevelTwo(tk.Frame):
 
         for i in range(4):
             for j in range(5):
-                self.buttons.append(tk.Button(self, bg="#8FAADC", width=18, height=5,  command=lambda index=cardCount: self.click(index)))
+                self.buttons.append(tk.Button(self, bg="#8FAADC", width=18, height=6,  command=lambda index=cardCount: self.click(index)))
                
               #  self.buttons.append(tk.Button(self, , width=125, height=90,command=lambda index=cardCount: self.click(index))) #
                 self.buttons[cardCount].place(x=xvar, y=yvar)
@@ -160,6 +166,11 @@ class LevelTwo(tk.Frame):
 
             xvar = 130
             yvar = yvar + 110
+
+        # 중간에 나가기
+        finish_img = tk.PhotoImage(file="image/finish.png")
+        btn = tk.Button(self, image=finish_img, bg='white', width=40, height=40, command=self.back_page, relief='flat')
+        btn.place(x=905, y=705)
 
         # 타이머
         self.createWidgets()

@@ -52,6 +52,11 @@ class LevelOne(tk.Frame):
         self.canvas.delete("all")
         self.destroy()
         self.master.switch_frame(CardGameOut.GameOut(self.master, 1))
+
+    def back_page(self):
+        self.canvas.delete("all")
+        self.destroy()
+        self.master.switch_frame(CardMenu.CardMenuPage)
         
     def click(self,index):
          global key1
@@ -136,7 +141,7 @@ class LevelOne(tk.Frame):
 
         self.dic_word()
         # 배경 상자
-        self.bac = tk.Canvas(self, width=780, height=525,bg="black")
+        self.bac = tk.Canvas(self, width=780, height=525, bg="black")
         self.bac.pack()
 
         wall = tk.PhotoImage(file="image/background3.png")
@@ -171,10 +176,7 @@ class LevelOne(tk.Frame):
 
         for i in range(3):
             for j in range(4):
-                
-                #cmd = lambda index=cardCount: self.click(index)   
-                self.buttons.append(tk.Button(self, bg="#8FAADC", width=22, height=8,  command=lambda index=cardCount: self.click(index)))
-                #self.buttons.append(tk.Button(self,image=img2 width=150, height=105, command=lambda index=cardCount: self.click(index)   )) #, command=cmd
+                self.buttons.append(tk.Button(self, bg="#8FAADC", width=23, height=8,  command=lambda index=cardCount: self.click(index)))
                 self.buttons[cardCount].place(x=xvar, y=yvar)
                 xvar = xvar + 182
                 cardCount += 1
@@ -182,7 +184,11 @@ class LevelOne(tk.Frame):
             xvar = 140
             yvar = yvar + 150
 
-      
+        # 중간에 나가기
+        finish_img = tk.PhotoImage(file="image/finish.png")
+        btn = tk.Button(self, image=finish_img, bg='white', width=40, height=40, command=self.back_page, relief='flat')
+        btn.place(x=905, y=705)
+
         # 타이머
         self.createWidgets()
 

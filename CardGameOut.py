@@ -52,26 +52,19 @@ class GameOut(tk.Frame):
         wall = tk.PhotoImage(file="image/background5.png")
         self.canvas.create_image(110, 130, anchor=tk.NW, image=wall)
 
-        # 멘트 적힌 상자
-        # self.title = tk.Canvas(self, width=780, height=525, bg="black")
-        # self.title.pack()
-        #
-        # wall2 = tk.PhotoImage(file="image/background4.png")
-        # self.canvas.create_image(130, 400, anchor=tk.NW, image=wall2)
-
         # 타이틀
         img = tk.PhotoImage(file="image/title.png")
         title_label = tk.Label(self, image=img)
         title_label.place(x=110, y=25)
 
         fontStyle = tkFont.Font(family="Ink Free", size=110, weight='bold')
-        fontStyle2 = tkFont.Font(family="G마켓 산스 Light", size=35, weight='bold')
+        fontStyle2 = tkFont.Font(family="G마켓 산스 Light", size=34, weight='bold')
 
         label = tk.Label(self, text="Game Over", font=fontStyle, fg='#C00000', bg="#A6A6A6")
         label.place(x=130, y=190)
 
         label1 = tk.Label(self, text="제한시간을 초과하였습니다!", font=fontStyle2, fg='#C00000', bg="#A6A6A6")
-        label1.place(x=160, y=380)
+        label1.place(x=270, y=400)
 
         img2 = tk.PhotoImage(file="image/restart_1.png")
         img3 = tk.PhotoImage(file="image/exit.png")
@@ -80,6 +73,6 @@ class GameOut(tk.Frame):
         tk.Button(self, image=img2, bg='white', width=330, height=80, command=self.restart_Page).place(x=150, y=510)
         tk.Button(self, image=img3, bg='white', width=330, height=80, command=self.back_page).place(x=510, y=510)
         label2 = tk.Label(self, image=img4, bg="#A6A6A6", relief='flat')
-        label2.place(x=750, y=360)
+        label2.place(x=130, y=360)
 
         self.mainloop()

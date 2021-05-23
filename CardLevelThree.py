@@ -52,7 +52,12 @@ class LevelThree(tk.Frame):
         self.canvas.delete("all")
         self.destroy()
         self.master.switch_frame(CardGameOut.GameOut(self.master, 3))
-    
+
+    def back_page(self):
+        self.canvas.delete("all")
+        self.destroy()
+        self.master.switch_frame(CardMenu.CardMenuPage)
+
     def click(self,index):
          global key1
          global key2
@@ -112,6 +117,11 @@ class LevelThree(tk.Frame):
                  print("종료")
          except:
             pass
+
+    def success(self):
+        self.canvas.delete("all")
+        self.destroy()
+        self.master.switch_frame(CardSuccess.CardSuccess) #프레임 변경을 위함
              
     def gui_frame(self):
 
@@ -149,7 +159,7 @@ class LevelThree(tk.Frame):
 
         for i in range(5):
             for j in range(6):
-                self.buttons.append(tk.Button(self, bg="#8FAADC", width=15, height=5,  command=lambda index=cardCount: self.click(index)))
+                self.buttons.append(tk.Button(self, bg="#8FAADC", width=16, height=5,  command=lambda index=cardCount: self.click(index)))
                 self.buttons[cardCount].place(x=xvar, y=yvar)
                 xvar = xvar + 125
                 cardCount += 1
@@ -157,7 +167,11 @@ class LevelThree(tk.Frame):
             xvar = 130
             yvar = yvar + 90
 
-        
+        # 중간에 나가기
+        finish_img = tk.PhotoImage(file="image/finish.png")
+        btn = tk.Button(self, image=finish_img, bg='white', width=40, height=40, command=self.back_page, relief='flat')
+        btn.place(x=905, y=705)
+
         # 타이머
         self.createWidgets()
 
