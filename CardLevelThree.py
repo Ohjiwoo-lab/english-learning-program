@@ -149,7 +149,7 @@ class LevelThree(tk.Frame):
 
         for i in range(5):
             for j in range(6):
-                self.buttons.append(tk.Button(self, bg="sky blue", width=15, height=5,  command=lambda index=cardCount: self.click(index)))
+                self.buttons.append(tk.Button(self, bg="#8FAADC", width=15, height=5,  command=lambda index=cardCount: self.click(index)))
                 self.buttons[cardCount].place(x=xvar, y=yvar)
                 xvar = xvar + 125
                 cardCount += 1

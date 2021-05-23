@@ -113,8 +113,8 @@ class LevelTwo(tk.Frame):
     def success(self):
         self.canvas.delete("all")
         self.destroy()
-        self.master.switch_frame(CardSuccess.CardSuccess)
-             
+        self.master.switch_frame(CardSuccess.CardSuccess) #프레임 변경을 위함
+        
     def gui_frame(self):
 
         self.dic_word()
@@ -151,7 +151,7 @@ class LevelTwo(tk.Frame):
 
         for i in range(4):
             for j in range(5):
-                self.buttons.append(tk.Button(self, bg="sky blue", width=18, height=5,  command=lambda index=cardCount: self.click(index)))
+                self.buttons.append(tk.Button(self, bg="#8FAADC", width=18, height=5,  command=lambda index=cardCount: self.click(index)))
                
               #  self.buttons.append(tk.Button(self, , width=125, height=90,command=lambda index=cardCount: self.click(index))) #
                 self.buttons[cardCount].place(x=xvar, y=yvar)

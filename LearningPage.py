@@ -1,91 +1,102 @@
 import tkinter as tk
 import tkinter.font as tkFont
 from PIL import Image, ImageTk
-from global_vari import wordlist,gl_user
+from global_vari import wordlist,gl_user,rnum,veri,word_img
 import copy
+import LearningMenu
 
 class LearningPage(tk.Frame):
     
-    def __init__(self,master):
+    def __init__(self,master,num):
         tk.Frame.__init__(self)
         self.page_count=0
         self.master = master
+        self.num=num
         self.canvas = tk.Canvas(self, width=1000, height=800)
         self.pack()
         self.canvas.pack()
         self.arr_ch=[]
         self.enter_possible=False
+        self.text_name = None
+        self.textbox = None        
+        self.word_frame=None
+        self.Learn_wronglabel=None
         self.gui_frame()
+        
      # 상단 학습하기 버튼
     def learn(self):
+        self.learn_but["bg"]="orange"
+        self.word_but["bg"]="white"
         self.enter_possible=True
         self.textbox.place(x=270, y=531)
-        #top_button1.config(state='disabled')
-        #top_button2.config(state='normal')
-        #WordCard_Label.config(fg="white")
-    
-    # 상단 단어카드 버튼
+        self.learn_but.config(state='disabled')
+        self.word_but.config(state='normal')
+        self.WordCard_Label.config(fg="white")
+            
+        if self.word_frame:
+            self.word_frame.destroy()
+            # 상단 단어카드 버튼
     def word_card(self):
+        self.learn_but["bg"]="white"
+        self.word_but["bg"]="orange"
+        self.word_frame=tk.Frame(self)
+        self.word_frame.place(x=345, y=145,width=300,height=280)
+       # self.canvas_img=tk.Canvas(self.word_frame,width=300,height=280)
+       # self.canvas_img.pack()
+        
         self.enter_possible=False
-        #top_button1.config(state='normal')
-        #top_button2.config(state='disabled')
+        self.learn_but.config(state='normal')
+        self.word_but.config(state='disabled')
         self.textbox.place_forget()
-        #WordCard_Label.config(fg="black")
-        #Learn_Eng.place(x=90, y=140)
-    
+        self.WordCard_Label.config(fg="black")
+        self.text_learn.place(x=90, y=140)
+        
+        self.img_label=tk.Label(self.word_frame,image=word_img[self.page_count],width=300,height=280,bg="white")
+        self.img_label.pack()        
+       # self.canvas_img.create_image(0,0,anchor=tk.NW,image=word_img[self.page_count])
+        self.mainloop()
+        
     def input_data(self,e):
-        self.text_name = tk.StringVar()
-        self.textbox = tk.Entry(self, width=16, textvariable=self.text_name, font=("맑은 고딕",40),fg = "gray", justify=tk.CENTER, bd = 0)  
-        self.textbox.place(x=270, y=531)
-        self.textbox.bind("<Return>",self.enter_db)
+        self.com_text.destroy()
         
     def press_left(self):
         try:
             if self.page_count > 0 :
                 self.right.place(x=932, y=410)
-                self.disabled_word()
+                #self.disabled_word()
                 self.page_count-=1
                 self.text_learn.config(text=wordlist[self.page_count].get_english())
+                self.card_bt.set(wordlist[self.page_count].get_english()+", "+wordlist[self.page_count].get_korean())
+                self.img_label["image"]=word_img[self.page_count] 
                 self.init_text()
                 self.wrong_frame.destroy()
             if self.page_count==0:
                 self.left.place_forget()
         except:
             pass
-        
-    def disabled_word(self):
-      try:
-         temp=copy.deepcopy(gl_user.get_know())
-         bool_op=False
-         for i in temp[0] :
-             if i == self.page_count:
-                 bool_op=True
-                 
-         if bool_op :
-            self.Learn_goodlabel.config(width=27, height=1)
-            print("일치")
-            self.Learn_goodlabel.pack()    
-            self.textbox["state"]=tk.DISABLED
-            self.textbox["disabledbackground"]="white"
-         else: 
-            self.textbox["state"]=tk.NORMAL
-            self.learn_goodlabel.destroy()
-            self.good_frame.destroy()
-      except:
-         pass
    
     def press_right(self):
         #self.page_count
        
         try:
             if self.page_count <= len(wordlist) :
+                if self.Learn_wronglabel:
+                    self.Learn_wronglabel.destroy()
                 self.left.place(x=32, y=410)
                 self.page_count+=1
-                self.disabled_word()
+                #self.disabled_word()
+                self.card_bt.set(wordlist[self.page_count].get_english()+", "+wordlist[self.page_count].get_korean())
                 self.text_learn.config(text=wordlist[self.page_count].get_english())
-                self.wrong_frame.destroy()
+                self.img_label["image"]=word_img[self.page_count]
+               
         except:
             pass
+    def back_page(self):
+        sound=True
+        self.master.click_sound(sound)
+        self.canvas.delete("all")
+        self.destroy()
+        self.master.switch_frame(LearningMenu.LearningMenu)
         
     def enter_db(self,e):
          up_text=self.textbox.get()
@@ -94,16 +105,17 @@ class LearningPage(tk.Frame):
              print("Success") 
              self.arr_ch[self.page_count]="O"
              self.text_name.set("")
-             self.master.write_info_know(wordlist[self.page_count].get_wordNum())
+             #self.master.write_info_know(wordlist[self.page_count].get_wordNum())
              self.press_right()
-             
+             if self.Learn_wronglabel:
+                 self.Learn_wronglabel.destroy()
          #    self.wrong_frame.destroy()
          else: # 틀렸으면
              self.wrong_frame=tk.Frame(self)
              self.wrong_frame.place(x=360,y=350,width=300,height=70)
              self.wrong_frame.config(bg="white")
              self.text_name.set("")
-             self.master.write_info_notKnow(wordlist[self.page_count].get_wordNum())
+             #self.master.write_info_notKnow(wordlist[self.page_count].get_wordNum())
        
              self.Learn_wronglabel = tk.Label(self.wrong_frame, text = "틀렸습니다!",bg = "white", font=("맑은 고딕",40),fg="red");
              self.Learn_wronglabel.config(width=27, height=1)
@@ -164,6 +176,7 @@ class LearningPage(tk.Frame):
                 self.wordlist_but.place(x=90, y=723)
            
     def gui_frame(self):
+        
         self.good_frame=tk.Frame(self)
         self.good_frame.place(x=250,y=350,width=550,height=70)
         self.good_frame.config(bg="white")
@@ -177,7 +190,7 @@ class LearningPage(tk.Frame):
         new_background = ImageTk.PhotoImage(resized)  # 크기조정
         self.canvas.create_image(0, 0, anchor=tk.NW, image=new_background)
         
-        self.learn_but=tk.Button(self, text="학습하기",fg = "white",bg = "orange", font=("맑은 고딕",25), command=self.learn)
+        self.learn_but=tk.Button(self, text="학습하기",bg = "orange", font=("맑은 고딕",25), command=self.learn)
         self.learn_but.config(width=14, state='disabled')
         self.learn_but.place(x=90, y=27)
         
@@ -185,20 +198,40 @@ class LearningPage(tk.Frame):
         self.word_but.config(width=14)
         self.word_but.place(x=366, y=27)
 
-        self.test_but=tk.Button(self, text="테스트", font=("맑은 고딕",25))
+        self.test_but=tk.Button(self, text="테스트", bg="white",font=("맑은 고딕",25))
         self.test_but.config(width=14)
         self.test_but.place(x=642, y=27)
         
+        self.card_bt = tk.StringVar()
+        self.card_bt.set(wordlist[self.page_count].get_english()+", "+wordlist[self.page_count].get_korean())
+
+        self.WordCard_Label = tk.Label(self, textvariable=self.card_bt, bg = "white",fg = "black", font=("맑은 고딕",40));
+        self.WordCard_Label.config(width=27, height=4)
+        self.WordCard_Label.place(x=90, y=431)
+
+        
+        self.text_name = tk.StringVar()
+        self.textbox = tk.Entry(self, width=16, textvariable=self.text_name, font=("맑은 고딕",40),fg = "gray", justify=tk.CENTER, bd = 0)
+        self.textbox.place(x=270, y=531)
+        self.textbox.bind("<Return>",self.enter_db)
+        
+        
         self.text_learn = tk.Label(self, text = wordlist[0].get_english(),bg = "white", font=("맑은 고딕",40));
+#        self.text_learn = tk.Label(self, text = wordlist[rnum].get_english(),bg = "white", font=("맑은 고딕",40));
+        
         self.text_learn.config(width=27, height=4)
         self.text_learn.place(x=90, y=140)
+        
+        
         #command의 줄인말. 사용자에게 지시를 함        
         self.com_text = tk.Label(self, text = "정답을 입력하세요.",bg = "white",fg = "gray", font=("맑은 고딕",40));
         self.com_text.config(width=27, height=4)
         self.com_text.place(x=90, y=431)
         
         self.com_text.bind('<Button-1>',self.input_data)
+       
         
+
         self.wordlist_but=tk.Button(self, text="단어 목록 보기",bg = "gray",command=self.list_word)
         self.wordlist_but.config(width=117, height=2)
         self.wordlist_but.place(x=90, y=723)
@@ -210,5 +243,12 @@ class LearningPage(tk.Frame):
         self.right=tk.Button(self, text="  R  ",command=self.press_right) #,command=press_right
         self.right.place(x=932, y=410)
         
+        self.back_but=tk.Button(self,height=2,width=10,text="뒤로가기",fg="black",command=self.back_page)
+        self.back_but.place(x=920,y=720)
         
+        if self.num == 1:
+            self.word_card()
+        else:
+            self.learn()
+            
         self.mainloop()

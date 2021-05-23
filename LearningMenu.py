@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter.font import Font
 from PIL import Image, ImageTk
-from global_vari import gl_user,wordlist,rnum
+from global_vari import gl_user,wordlist,rnum,veri
 import random
 import ReviewMenuPage
 import LearningPage
@@ -80,9 +80,12 @@ class LearningMenu(tk.Frame):
         self.back_but.destroy()
     
     def go_event(self,e):
+        veri=True
         print("학습하러 가기 frame 연결")
         self.canvas.delete("all")
         self.destroy()
+        self.master.switch_frame(LearningPage.LearningPage)
+
     def next_review(self):
         sound=True
         self.master.click_sound(sound)
@@ -94,7 +97,13 @@ class LearningMenu(tk.Frame):
         self.master.click_sound(sound)
         self.canvas.delete("all")
         self.destroy()
-        self.master.switch_frame(LearningPage.LearningPage)
+        self.master.switch_frame(LearningPage.LearningPage(self.master,0))
+    def next_word(self):
+        sound=True
+        self.master.click_sound(sound)
+        self.canvas.delete("all")
+        self.destroy()
+        self.master.switch_frame(LearningPage.LearningPage(self.master,1))
     def back_page(self):
         sound=True
         self.master.click_sound(sound)
@@ -120,7 +129,7 @@ class LearningMenu(tk.Frame):
         self.rand_word_box.place(x=300,y=220,width=550,height=100)
         self.rand_word_box.config(bg="white")
 
-        rnum = random.randint(1,len(wordlist))
+        rnum = random.randint(0,len(wordlist))
         
         self.rand_label=tk.Label(self.rand_word_box,text=wordlist[rnum].get_english(),fg="red",bg="white",font=("맑은 고딕",40))
         self.rand_label.grid(row=0,column=0)
@@ -162,7 +171,7 @@ class LearningMenu(tk.Frame):
         
         self.click_card=ImageTk.PhotoImage(Image.open('C:/english-learning-program/image/card_but1.png'))
         self.but_img2=ImageTk.PhotoImage(Image.open('C:/english-learning-program/image/card_but.png'))
-        self.card_but=tk.Button(self,height=70,width=650,image=self.but_img2)
+        self.card_but=tk.Button(self,height=70,width=650,image=self.but_img2,command=self.next_word)
         self.card_but.place(x=170,y=580)
         
         self.card_but.bind("<Enter>",self.click_but3)

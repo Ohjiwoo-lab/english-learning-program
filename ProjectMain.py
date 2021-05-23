@@ -1,4 +1,5 @@
 from StartPage import StartPage
+import LearningMenu
 from playsound import playsound
 from UserManager import UserManager
 from WordManager import WordManager

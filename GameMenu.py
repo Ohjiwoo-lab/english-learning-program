@@ -1,7 +1,7 @@
 import tkinter as tk
 from PIL import Image, ImageTk
 import CardMenu
-
+import MenuPage
 class GameMenuPage(tk.Frame):
     
     def __init__(self,master):
@@ -34,7 +34,12 @@ class GameMenuPage(tk.Frame):
         self.canvas.delete("all")
         self.destroy()
         self.master.switch_frame(CardMenu.CardMenuPage)
-        
+    def back_page(self):
+        sound=True
+        self.master.click_sound(sound)
+        self.canvas.delete("all")
+        self.destroy()
+        self.master.switch_frame(MenuPage.MenuPage)    
     def gui_frame(self):
         top_word=Image.open("C:/english-learning-program/image/top_word_blue.png")
         #이미지 크기 재조정
@@ -64,4 +69,6 @@ class GameMenuPage(tk.Frame):
         self.draw_but.bind("<Enter>",self.enter_event1)
         self.draw_but.bind("<Leave>",self.leave_event)
         
+        self.back_but=tk.Button(self,height=2,width=10,text="뒤로가기",fg="black",command=self.back_page)
+        self.back_but.place(x=880,y=720)
         self.mainloop()        

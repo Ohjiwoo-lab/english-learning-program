@@ -52,23 +52,30 @@ class LevelOne(tk.Frame):
         self.canvas.delete("all")
         self.destroy()
         self.master.switch_frame(CardGameOut.GameOut(self.master, 1))
-    
+        
     def click(self,index):
          global key1
          global key2
          self.master.card_sound()
          self.buttons[index]['text']=self.key[index]
          try:
+            
              if self.card_count==0:
                    if self.key1_button and self.key2_button !=None:
                        self.count=self.count+1
                        print(self.count)
+                       self.key1_button['state']=tk.NORMAL
+                       self.key2_button['state']=tk.NORMAL
                        self.key1_button.destroy()
                        self.key2_button.destroy()
                        self.text.set(str(self.count)+' / 6')
+                       if self.count == 5:
+                            self.key1_button['state']=tk.NORMAL
+                            self.key2_button['state']=tk.NORMAL
                        if self.count == 6 :
                            self.success()
                            print("종료")
+                       
                   
                    if self.buttons[index]['text'] in self.kor_key: # 1키 한글
                        key1=self.kor_key.index(self.buttons[index]['text'])
@@ -76,6 +83,7 @@ class LevelOne(tk.Frame):
                    if self.buttons[index]['text'] in self.eng_key: # 1키 영어
                        key1=self.eng_key.index(self.buttons[index]['text'])
                        self.key1_button=self.buttons[index]
+                       self.buttons[index]['state']=tk.DISABLED
                    self.card_count=self.card_count+1
                    return
              if self.card_count==1:
@@ -83,21 +91,28 @@ class LevelOne(tk.Frame):
                      if self.eng_key.index(self.buttons[index]['text'])==key1:
                          key2=self.eng_key.index(self.buttons[index]['text'])
                          self.key2_button=self.buttons[index]
+                         self.buttons[index]['state']=tk.DISABLED
                          self.card_count=0
                      else: #영어 영어
                          self.key2_button=self.buttons[index]
-                         self.card_count=3
+                         self.buttons[index]['state']=tk.DISABLED
+                         self.card_count=2
                      return
                  elif self.buttons[index]['text'] in self.kor_key: #2키 한글
                      if self.kor_key.index(self.buttons[index]['text'])==key1:
                          key2=self.kor_key.index(self.buttons[index]['text'])
                          self.key2_button=self.buttons[index]
+                         self.buttons[index]['state']=tk.DISABLED
                          self.card_count=0
                      else: #한글 한글
                          self.key2_button=self.buttons[index]
-                         self.card_count=3
+                         self.buttons[index]['state']=tk.DISABLED
+                         self.card_count=2
+
                      return
-             if self.card_count==3: #틀렸을 때
+             if self.card_count==2: #틀렸을 때
+                   self.key1_button['state']=tk.NORMAL
+                   self.key2_button['state']=tk.NORMAL
                    self.key1_button['text']=''
                    self.key2_button['text']=''              
                    if self.buttons[index]['text'] in self.kor_key: # 1키 한글
@@ -106,6 +121,7 @@ class LevelOne(tk.Frame):
                    if self.buttons[index]['text'] in self.eng_key: # 1키 영어
                        key1=self.eng_key.index(self.buttons[index]['text'])
                        self.key1_button=self.buttons[index]
+                       self.buttons[index]['state']=tk.DISABLED
                    self.card_count=1
                
          except:
@@ -114,8 +130,8 @@ class LevelOne(tk.Frame):
     def success(self):
         self.canvas.delete("all")
         self.destroy()
-        self.master.switch_frame(CardSuccess.CardSuccess)
-    
+        self.master.switch_frame(CardSuccess.CardSuccess) #프레임 변경을 위함
+        
     def gui_frame(self):
 
         self.dic_word()
@@ -157,7 +173,7 @@ class LevelOne(tk.Frame):
             for j in range(4):
                 
                 #cmd = lambda index=cardCount: self.click(index)   
-                self.buttons.append(tk.Button(self, bg="sky blue", width=22, height=8,  command=lambda index=cardCount: self.click(index)))
+                self.buttons.append(tk.Button(self, bg="#8FAADC", width=22, height=8,  command=lambda index=cardCount: self.click(index)))
                 #self.buttons.append(tk.Button(self,image=img2 width=150, height=105, command=lambda index=cardCount: self.click(index)   )) #, command=cmd
                 self.buttons[cardCount].place(x=xvar, y=yvar)
                 xvar = xvar + 182

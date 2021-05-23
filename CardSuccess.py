@@ -3,7 +3,7 @@ import tkinter.font as tkFont
 from PIL import Image, ImageTk
 import CardMenu
 
-class CardSucess(tk.Frame):
+class CardSuccess(tk.Frame):
 
     def __init__(self, master):
         tk.Frame.__init__(self, master)
@@ -55,4 +55,3 @@ class CardSucess(tk.Frame):
         label2.place(x=130, y=380)
 
         self.mainloop()
-
