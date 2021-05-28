@@ -4,8 +4,9 @@ from PIL import Image, ImageTk
 from global_vari import gl_user,wordlist,rnum,veri
 import random
 import ReviewMenuPage
-import LearningPage
+#import LearningPage
 import MenuPage
+import TestMenu
 
 class LearningMenu(tk.Frame):
     
@@ -84,7 +85,7 @@ class LearningMenu(tk.Frame):
         print("학습하러 가기 frame 연결")
         self.canvas.delete("all")
         self.destroy()
-        self.master.switch_frame(LearningPage.LearningPage)
+#        self.master.switch_frame(LearningPage.LearningPage(self.master,2))
 
     def next_review(self):
         sound=True
@@ -97,20 +98,28 @@ class LearningMenu(tk.Frame):
         self.master.click_sound(sound)
         self.canvas.delete("all")
         self.destroy()
-        self.master.switch_frame(LearningPage.LearningPage(self.master,0))
+ #       self.master.switch_frame(LearningPage.LearningPage(self.master,0))
+        
     def next_word(self):
         sound=True
         self.master.click_sound(sound)
         self.canvas.delete("all")
         self.destroy()
-        self.master.switch_frame(LearningPage.LearningPage(self.master,1))
+  #      self.master.switch_frame(LearningPage.LearningPage(self.master,1))
+        
     def back_page(self):
         sound=True
         self.master.click_sound(sound)
         self.canvas.delete("all")
         self.destroy()
         self.master.switch_frame(MenuPage.MenuPage)
-        
+    def next_test(self):
+        sound=True
+        self.master.click_sound(sound)
+        self.canvas.delete("all")
+        self.destroy()
+        self.master.switch_frame(TestMenu.TestInitGui)
+    
     def gui_frame(self) :
         
         top_word=Image.open("C:/english-learning-program/image/top_word.png")
@@ -128,9 +137,10 @@ class LearningMenu(tk.Frame):
         self.rand_word_box=tk.Frame(self)
         self.rand_word_box.place(x=300,y=220,width=550,height=100)
         self.rand_word_box.config(bg="white")
-
-        rnum = random.randint(0,len(wordlist))
         
+        
+        rnum = random.randint(0,len(wordlist)-1)
+     
         self.rand_label=tk.Label(self.rand_word_box,text=wordlist[rnum].get_english(),fg="red",bg="white",font=("맑은 고딕",40))
         self.rand_label.grid(row=0,column=0)
         
@@ -179,7 +189,7 @@ class LearningMenu(tk.Frame):
         
         self.click_test=ImageTk.PhotoImage(Image.open('C:/english-learning-program/image/test_but1.png'))
         self.but_img3=ImageTk.PhotoImage(Image.open('C:/english-learning-program/image/test_but.png'))
-        self.test_but=tk.Button(self,height=70,width=650,image=self.but_img3)
+        self.test_but=tk.Button(self,height=70,width=650,image=self.but_img3,command=self.next_test)
         self.test_but.place(x=170,y=650)
         
         self.test_but.bind("<Enter>",self.click_but4)

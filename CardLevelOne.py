@@ -64,31 +64,22 @@ class LevelOne(tk.Frame):
          self.master.card_sound()
          self.buttons[index]['text']=self.key[index]
          try:
-            
              if self.card_count==0:
                    if self.key1_button and self.key2_button !=None:
                        self.count=self.count+1
                        print(self.count)
-                       self.key1_button['state']=tk.NORMAL
-                       self.key2_button['state']=tk.NORMAL
                        self.key1_button.destroy()
                        self.key2_button.destroy()
                        self.text.set(str(self.count)+' / 6')
-                       if self.count == 5:
-                            self.key1_button['state']=tk.NORMAL
-                            self.key2_button['state']=tk.NORMAL
                        if self.count == 6 :
                            self.success()
                            print("종료")
-                       
-                  
                    if self.buttons[index]['text'] in self.kor_key: # 1키 한글
                        key1=self.kor_key.index(self.buttons[index]['text'])
                        self.key1_button=self.buttons[index]
                    if self.buttons[index]['text'] in self.eng_key: # 1키 영어
                        key1=self.eng_key.index(self.buttons[index]['text'])
                        self.key1_button=self.buttons[index]
-                       self.buttons[index]['state']=tk.DISABLED
                    self.card_count=self.card_count+1
                    return
              if self.card_count==1:
@@ -96,28 +87,21 @@ class LevelOne(tk.Frame):
                      if self.eng_key.index(self.buttons[index]['text'])==key1:
                          key2=self.eng_key.index(self.buttons[index]['text'])
                          self.key2_button=self.buttons[index]
-                         self.buttons[index]['state']=tk.DISABLED
                          self.card_count=0
                      else: #영어 영어
                          self.key2_button=self.buttons[index]
-                         self.buttons[index]['state']=tk.DISABLED
-                         self.card_count=2
+                         self.card_count=3
                      return
                  elif self.buttons[index]['text'] in self.kor_key: #2키 한글
                      if self.kor_key.index(self.buttons[index]['text'])==key1:
                          key2=self.kor_key.index(self.buttons[index]['text'])
                          self.key2_button=self.buttons[index]
-                         self.buttons[index]['state']=tk.DISABLED
                          self.card_count=0
                      else: #한글 한글
                          self.key2_button=self.buttons[index]
-                         self.buttons[index]['state']=tk.DISABLED
-                         self.card_count=2
-
+                         self.card_count=3
                      return
-             if self.card_count==2: #틀렸을 때
-                   self.key1_button['state']=tk.NORMAL
-                   self.key2_button['state']=tk.NORMAL
+             if self.card_count==3: #틀렸을 때
                    self.key1_button['text']=''
                    self.key2_button['text']=''              
                    if self.buttons[index]['text'] in self.kor_key: # 1키 한글
@@ -126,9 +110,8 @@ class LevelOne(tk.Frame):
                    if self.buttons[index]['text'] in self.eng_key: # 1키 영어
                        key1=self.eng_key.index(self.buttons[index]['text'])
                        self.key1_button=self.buttons[index]
-                       self.buttons[index]['state']=tk.DISABLED
                    self.card_count=1
-               
+                   
          except:
             pass
         

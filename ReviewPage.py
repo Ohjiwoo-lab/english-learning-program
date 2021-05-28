@@ -9,36 +9,11 @@ import copy
 class ReviewPage(tk.Frame):
     def __init__(self, master):
         tk.Frame.__init__(self, master)
-        self.master=master          
+        self.master=master       
         self.writtenWord=[] 
         self.rst=[]
-        rpt=RptWord()
-        self.EngRdWord=copy.deepcopy(rpt.setWordforRpt())
-        print(self.EngRdWord)
-        
-        if len(self.EngRdWord) == 0 :
-            self.message=tk.messagebox.showinfo("경고",gl_user.get_name()+"님은 복습할 정보가 없으십니다.")
-            if self.message == 'ok':
-                self.master.switch_frame(LearningMenu.LearningMenu)
-                
-        self.count=0
-        self.canvas=tk.Canvas(self,width=1000,height=800)
-        self.pack()
-        self.canvas.pack()
-        self.gui_frame()
-    def set_init(self):
-    
-        self.writtenWord=[] 
-        self.rst=[]
-        rpt=RptWord()
-        self.EngRdWord=copy.deepcopy(rpt.setWordforRpt())
-        print(self.EngRdWord)
-        
-        if len(self.EngRdWord) == 0 :
-            self.message=tk.messagebox.showinfo("경고",gl_user.get_name()+"님은 복습할 정보가 없으십니다.")
-            if self.message == 'ok':
-                self.master.switch_frame(LearningMenu.LearningMenu)
-                
+        self.rpt=None
+        self.EngRdWord=None 
         self.count=0
         self.canvas=tk.Canvas(self,width=1000,height=800)
         self.pack()
@@ -92,7 +67,6 @@ class ReviewPage(tk.Frame):
         self.rstExitBt.destroy()
         
     def next_page(self,e):
-        self.set_init()
         self.rnwWord()
         self.canvas.delete("all")
         self.destroy()
@@ -101,19 +75,20 @@ class ReviewPage(tk.Frame):
     def rnwWord(self):
         
         notKnowList=[] # 틀린 단어 -know 삭제 후 notknow 추가
+        #두개를 반대로
         knowList=[] # 맞은 단어 -그대로
-        tempRnw=gl_user.get_notKnow()
+        #tempRnw=gl_user.get_notKnow()
         #맞은 단어와 틀린단어를 문자열 형태로 변환
         for i in range(len(self.EngRdWord)):
-            if self.rst[i]=='wrong':
+            if self.rst[i]=='correct':
                 #다틀렸을시에 아는단어들이 모두 틀린단어로 가야되고 아는단어를 1번으로 초기화 해야된다.
                 #하지만 1번단어가 이미 틀린단어에 있다면 중복되므로 리스트에 추가되지 않게 한다. 
                 if str(self.EngRdWord[i][0])=="1":
                     print(" ")
                 else:
-                    notKnowList.append(str(self.EngRdWord[i][0]))   
+                    knowList.append(str(self.EngRdWord[i][0]))   
             else:
-                knowList.append(str(self.EngRdWord[i][0]))
+                notKnowList.append(str(self.EngRdWord[i][0]))
         #아는단어가 데이터 베이스에 하나도 없으면 불러올때 index오류가 남, 그래서 단어 데이터의 첫번째 단어로 초기화한다. 
         #if not knowList:
         #    print("맞춘단어가 없어 아는단어(know)가 더이상 없습니다.아는단어(know)를 단어 데이터의 첫번째단어로 초기화합니다.")
@@ -126,8 +101,9 @@ class ReviewPage(tk.Frame):
         print(notKnowList)
         print(knowList)
         
-        if len(notKnowList) !=0 :
-            self.master.write_notKnow(notKnowList)
+        if len(knowList) !=0 :
+            print("11")
+            self.master.write_notKnow(knowList)
          
     def showRstandExt_Bt(self):
         #결과보기 나타남
@@ -155,7 +131,7 @@ class ReviewPage(tk.Frame):
         self.rstBg2.place(x=310,y=65)
         #단어가 10개가 넘으면 경고문 나오기
 #단어가 1개이상일때 
-        if len(self.EngRdWord)>1:
+        if len(self.EngRdWord)>=1:
             if len(self.EngRdWord)>8:
                     self.rstBg2.create_text(180,490,text="*단어가 많아 일부분만 출력합니다.",font=('맑은고딕',10,))
             for i in range(len(self.EngRdWord)):
@@ -178,20 +154,28 @@ class ReviewPage(tk.Frame):
        
         self.rstExitBt=tk.Button(self,image=self.new_rstexit,bg='white',bd=0,command=self.destroy_resultPage)
         self.rstExitBt.place(x=570,y=580)
-      
+    
+    def ok_click(self):
+        self.destroy()
+        self.master.switch_frame(LearningMenu.LearningMenu)
+        
+        
     def restart(self):
-        rpt=RptWord()
-        self.EngRdWord=copy.deepcopy(rpt.setWordforRpt())
-        print(self.EngRdWord)
         self.gui_frame()
-         
+        
     def gui_frame(self):
-       
+        
+        self.rpt=RptWord()
+        self.EngRdWord=copy.deepcopy(self.rpt.setWordforRpt())
+        self.message=None
+        
+        print("reviewpage set: ",self.EngRdWord)
+        
         if len(self.EngRdWord) == 0 :
             self.message=tk.messagebox.showinfo("경고",gl_user.get_name()+"님은 복습할 정보가 없으십니다.")
-            if self.message == 'ok':
-                self.master.switch_frame(LearningMenu.LearningMenu)
-       
+        if self.message == 'ok':
+            self.ok_click()    
+        
         self.count=0
         self.writtenWord.clear() 
         #self.rst.clear()

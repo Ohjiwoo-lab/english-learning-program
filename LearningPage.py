@@ -4,6 +4,7 @@ from PIL import Image, ImageTk
 from global_vari import wordlist,gl_user,rnum,veri,word_img
 import copy
 import LearningMenu
+import TestMenu
 
 class LearningPage(tk.Frame):
     
@@ -25,6 +26,8 @@ class LearningPage(tk.Frame):
         
      # 상단 학습하기 버튼
     def learn(self):
+        self.com_text.place(x=90,y=431)
+        self.num=0
         self.learn_but["bg"]="orange"
         self.word_but["bg"]="white"
         self.enter_possible=True
@@ -58,6 +61,9 @@ class LearningPage(tk.Frame):
         
     def input_data(self,e):
         self.com_text.destroy()
+    def test(self):
+        self.destroy()
+        self.master.switch_frame(TestMenu.TestInitGui)
         
     def press_left(self):
         try:
@@ -198,7 +204,7 @@ class LearningPage(tk.Frame):
         self.word_but.config(width=14)
         self.word_but.place(x=366, y=27)
 
-        self.test_but=tk.Button(self, text="테스트", bg="white",font=("맑은 고딕",25))
+        self.test_but=tk.Button(self, text="테스트", bg="white",font=("맑은 고딕",25),command=self.test)
         self.test_but.config(width=14)
         self.test_but.place(x=642, y=27)
         
@@ -226,10 +232,9 @@ class LearningPage(tk.Frame):
         #command의 줄인말. 사용자에게 지시를 함        
         self.com_text = tk.Label(self, text = "정답을 입력하세요.",bg = "white",fg = "gray", font=("맑은 고딕",40));
         self.com_text.config(width=27, height=4)
-        self.com_text.place(x=90, y=431)
+       # self.com_text.place(x=90, y=431)
         
         self.com_text.bind('<Button-1>',self.input_data)
-       
         
 
         self.wordlist_but=tk.Button(self, text="단어 목록 보기",bg = "gray",command=self.list_word)
@@ -247,8 +252,8 @@ class LearningPage(tk.Frame):
         self.back_but.place(x=920,y=720)
         
         if self.num == 1:
+            self.com_text.place_forget()
             self.word_card()
-        else:
-            self.learn()
-            
+        else :
+            self.learn() 
         self.mainloop()

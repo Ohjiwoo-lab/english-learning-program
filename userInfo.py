@@ -27,13 +27,15 @@ class User :
         self.__name = name
     
     def set_know(self,know):
-        self.__know.append(know)
+            self.__know.append(know)
         
     def set_notKnow(self,notknow):
-        self.__notKnow.append(notknow)
+            self.__notKnow.append(notknow)
    
-    def delete_know(self,i):
-        self.__know.remove(i)
+    def delete_notKnow(self,i):
+        print("temp[i]",self.__notKnow.remove[i])
+        del self.__notKnow[self.__notKnow.index(i)]
+        #self.__notKnow.remove(i)
         
     def get_userNum(self):
         return self.__UserNum

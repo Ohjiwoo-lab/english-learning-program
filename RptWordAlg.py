@@ -15,9 +15,9 @@ class RptWord:
         #첫번째유저의 Know(번호)를 리스트에 저장
         
         if gl_user != None:
-            
-            self.temp=copy.deepcopy(gl_user.get_know())
-            print(self.temp)
+            self.temp.clear()
+            self.temp=copy.deepcopy(gl_user.get_notKnow())
+            print("review_alg(temp): ",self.temp)
             #wordlist의 번호만 리스트에 저장
             for i in range(len(wordlist)):
                 self.wordnum1.insert(i,wordlist[i].get_wordNum())    
@@ -33,4 +33,5 @@ class RptWord:
                     if i==j.get_wordNum():
                         self.finalRptWord.insert(i,[j.get_wordNum(),j.get_english(),j.get_korean()]) 
             print(self.finalRptWord)
+            
             return self.finalRptWord

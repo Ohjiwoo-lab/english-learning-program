@@ -2,6 +2,7 @@ import tkinter as tk
 from PIL import Image, ImageTk
 import CardMenu
 import MenuPage
+#import start
 class GameMenuPage(tk.Frame):
     
     def __init__(self,master):
@@ -16,6 +17,12 @@ class GameMenuPage(tk.Frame):
         new_background=ImageTk.PhotoImage(resized) #크기조정
         self.canvas.create_image(0,0,anchor=tk.NW,image=new_background)
         self.gui_frame()
+    def draw_page(self):
+        sound=True
+        self.master.click_sound(sound)
+        self.canvas.delete("all")
+        self.destroy()
+     #   self.master.switch_frame(start)
         
     def enter_event(self,e):
         self.anagram_but["image"]=self.click_anagram
@@ -34,12 +41,14 @@ class GameMenuPage(tk.Frame):
         self.canvas.delete("all")
         self.destroy()
         self.master.switch_frame(CardMenu.CardMenuPage)
+    
     def back_page(self):
         sound=True
         self.master.click_sound(sound)
         self.canvas.delete("all")
         self.destroy()
         self.master.switch_frame(MenuPage.MenuPage)    
+    
     def gui_frame(self):
         top_word=Image.open("C:/english-learning-program/image/top_word_blue.png")
         #이미지 크기 재조정
@@ -63,7 +72,7 @@ class GameMenuPage(tk.Frame):
       
         self.click_draw=ImageTk.PhotoImage(Image.open('C:/english-learning-program/image/draw_but1.png'))
         self.but_img1 = ImageTk.PhotoImage(Image.open('C:/english-learning-program/image/draw_but.png'))
-        self.draw_but = tk.Button(self,height=100,width=685,image = self.but_img1)
+        self.draw_but = tk.Button(self,height=100,width=685,image = self.but_img1,command=self.draw_page)
         self.draw_but.place(x=150,y=600)
         
         self.draw_but.bind("<Enter>",self.enter_event1)

@@ -15,7 +15,7 @@ class WordManager:
     def __init__(self):
         self.python_db=None
         self.wordread()
-        self.word_img()
+        #self.word_img()
     def wordread(self) :
     #파일읽기 간략한 코드
          self.python_db=pymysql.connect(host='localhost',user='root',password='hdoo517a*',db='python_project',charset='utf8')

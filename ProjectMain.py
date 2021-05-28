@@ -5,6 +5,7 @@ from UserManager import UserManager
 from WordManager import WordManager
 from pygame import *
 import threading
+import TestMenu
 import CardMenu
 from time import sleep
 try:
@@ -23,7 +24,7 @@ class ProjectMain(tk.Tk,UserManager,WordManager): #Tk를 상속받아서 생성
         print("Royalty Free Music from Bensound")
         self.music=True
         self._frame=None
-        self.switch_frame(StartPage) #프레임 변경을 위함
+        self.switch_frame(TestMenu.TestInitGui) #프레임 변경을 위함
         
     def init_gui(self): #Tk 이름 설정 및 꾸미기
         self.geometry("1000x800") #1000x800 크기
@@ -40,13 +41,13 @@ class ProjectMain(tk.Tk,UserManager,WordManager): #Tk를 상속받아서 생성
         self._frame=new_frame
         self._frame.pack()
     
-    def write_notKnow(self,update):
+    def write_notKnow(self,update): #아는것 추가,틀린것 삭제
         
         if update is not None:
-            self.delete_knowInfo(update)
-            self.insert_notknowInfo(update)
+            self.delete_notKnowInfo(update)
+            self.insert_knowInfo(update)
             self.set_user()
-    
+           
     def write_user(self):
         self.insert_user()
     
@@ -76,9 +77,8 @@ class ProjectMain(tk.Tk,UserManager,WordManager): #Tk를 상속받아서 생성
         mixer.music.stop()
         
     def exit_(self):
-        self.stop_sound()
         sound=True
-        self.master.click_sound(sound)
+        self.click_sound(sound)
         print("종료됩니다")
         self.destroy()
         
