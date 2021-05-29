@@ -17,6 +17,7 @@ class Test(tk.Frame):
         for i in range(len(wordlist)):
             self.temp_for_Random.append([wordlist[i].get_wordNum(),wordlist[i].get_english(),wordlist[i].get_korean()])
         #전체 단어에서 중복되지 않게 10개만 뽑아서 temp2에 저장
+        
         self.temp2=random.sample(self.temp_for_Random,10)
         print(self.temp2)#단어잘저장됬는지 체크하는거(지워도 되여)
         self.writtenWord=[]
@@ -142,6 +143,8 @@ class Test(tk.Frame):
                  else:
                      self.correctWronglist.insert(i,'wrong')
                      self.notknowWord_num.append(self.temp2[i][0])
+            
+         self.master.insert_info(self.knowWord_num,self.notknowWord_num)
 # #################################################################        
 
 #     #제출하면 채점해서 결과를 보여준다. 

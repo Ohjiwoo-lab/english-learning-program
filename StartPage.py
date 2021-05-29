@@ -50,7 +50,6 @@ class StartPage(tk.Frame):
             user_check=True
             self.destroy()
             sound=False
-            self.master.stop_sound()
             self.master.switch_frame(MenuPage)
                 
     def create_search(self):

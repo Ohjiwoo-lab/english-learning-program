@@ -1,3 +1,4 @@
+import copy
 class User :
     def __init__(self) :
         #__변수이름은 외부에서 변경 불가능
@@ -27,14 +28,22 @@ class User :
         self.__name = name
     
     def set_know(self,know):
-            self.__know.append(know)
+        self.__know.append(copy.deepcopy(know))
         
     def set_notKnow(self,notknow):
-            self.__notKnow.append(notknow)
+        self.__notKnow.append(copy.deepcopy(notknow))
    
     def delete_notKnow(self,i):
-        print("temp[i]",self.__notKnow.remove[i])
-        del self.__notKnow[self.__notKnow.index(i)]
+        try:
+            if self.__notKnow[i] in self.__notKnow: 
+                print('리스트에 값이 있습니다.')
+                del self.__notKnow[int(i)]
+            else: 
+                print('리스트에 값이 없습니다.')
+        except:
+            print("예외")
+            pass
+
         #self.__notKnow.remove(i)
         
     def get_userNum(self):
@@ -45,15 +54,4 @@ class User :
         return self.__know
     def get_notKnow(self):
         return self.__notKnow
-            
-    def get_line(self):
-        return str(self.__UserNum)+","+self.__name+","+self.__gameTime+","+self.join_know(),self.join_notknow()
-    
-    def join_know(self): #문자열로 연결된 아는 단어 연결.
-        line='.'.join(self.__know)
-        return line
-    
-    def join_notknow(self): #문자열로 연결된 모르는 단어 연결 -> 디비에선 안사용할텐데?
-        line='.'.join(self.__notKnow)
-        return line
-    
+  

@@ -122,10 +122,13 @@ class UserManager:
                     temp = copy.deepcopy(gl_user.get_notKnow())
                     print("usermanager(temp): ",temp,len(temp[0]))
                     for i in range(len(temp[0])):
-                        if temp[0][i] == delete[i]:
-                            print("delete[i] ",delete[i]," **temp[i] ",temp[0][i])
-                            gl_user.delete_notKnow(i)
-                    print("usermanager(get_notknow): ",gl_user.get_notKnow())
+                        try:
+                            if temp[0][i] == delete[i]:
+                                print("delete[i] ",delete[i]," **temp[i] ",temp[0][i])
+                                gl_user.delete_notKnow(i)
+                        except:
+                           pass
+                        print("usermanager(get_notknow): ",gl_user.get_notKnow())
             finally:
                 self.python_db.close()
 
@@ -144,10 +147,29 @@ class UserManager:
                         self.python_db.commit()
                         
                     gl_user.set_know(insert)
-                    print("usermanager(get_know): ",gl_user.get_know())
+                    print("1:usermanager(get_know): ",gl_user.get_know())
             finally:
                 self.python_db.close()
-
+                
+    def insert_notknowInfo(self,insert):
+        
+        if gl_user is not None:
+            
+            self.python_db=pymysql.connect(host='localhost',user='root',password='hdoo517a*',db='python_project',charset='utf8')
+            
+            try:
+                with self.python_db.cursor() as cursor:
+                    knowSql="insert into notknow_info values (%s,%s)"
+                    for i in range(len(insert)):
+                        know_info=(str(gl_user.get_userNum()),str(insert[i]))
+                        cursor.execute(knowSql,know_info)
+                        self.python_db.commit()
+                        
+                    gl_user.set_notKnow(insert)
+                    print("2:usermanager(get_notknow): ",gl_user.get_notKnow())
+            finally:
+                self.python_db.close()
+                
     def insert_notknowInfo_int(self,wrong_num):
                 
         if gl_user is not None:

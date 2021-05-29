@@ -46,8 +46,6 @@ class ReviewPage(tk.Frame):
                 elif self.text.get().strip()==self.EngRdWord[-1][1]:
                     self.showRstandExt_Bt()
                     self.cal()
-                    
-                    #self.exitBt=Button(self.windowm,image=self.)
                     return 0
     def cal(self):
          #채점
@@ -86,9 +84,9 @@ class ReviewPage(tk.Frame):
                 if str(self.EngRdWord[i][0])=="1":
                     print(" ")
                 else:
-                    knowList.append(str(self.EngRdWord[i][0]))   
+                    knowList.append(self.EngRdWord[i][0])   
             else:
-                notKnowList.append(str(self.EngRdWord[i][0]))
+                notKnowList.append(self.EngRdWord[i][0])
         #아는단어가 데이터 베이스에 하나도 없으면 불러올때 index오류가 남, 그래서 단어 데이터의 첫번째 단어로 초기화한다. 
         #if not knowList:
         #    print("맞춘단어가 없어 아는단어(know)가 더이상 없습니다.아는단어(know)를 단어 데이터의 첫번째단어로 초기화합니다.")
@@ -164,17 +162,17 @@ class ReviewPage(tk.Frame):
         self.gui_frame()
         
     def gui_frame(self):
-        
+      
         self.rpt=RptWord()
         self.EngRdWord=copy.deepcopy(self.rpt.setWordforRpt())
         self.message=None
         
         print("reviewpage set: ",self.EngRdWord)
         
-        if len(self.EngRdWord) == 0 :
+        if len(self.EngRdWord)==0 or self.EngRdWord is None :
             self.message=tk.messagebox.showinfo("경고",gl_user.get_name()+"님은 복습할 정보가 없으십니다.")
         if self.message == 'ok':
-            self.ok_click()    
+            self.ok_click()
         
         self.count=0
         self.writtenWord.clear() 
@@ -223,4 +221,3 @@ class ReviewPage(tk.Frame):
         self.rtnToInit.place(x=95,y=697,width=100,height=50)
 
         self.mainloop()
-        

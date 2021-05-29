@@ -28,10 +28,20 @@ class RptWord:
         
             #inttemp를 이용해서 wordlist의 영어와 한글을 역추적
             self.finalRptWord.clear()
-            for i in self.temp[0]:
-                for j in wordlist:
-                    if i==j.get_wordNum():
-                        self.finalRptWord.insert(i,[j.get_wordNum(),j.get_english(),j.get_korean()]) 
-            print(self.finalRptWord)
+            try:
+                if len(self.temp[0]) !=0:
+                    for i in self.temp[0]:
+                        for j in wordlist:
+                            if i==j.get_wordNum():
+                                self.finalRptWord.insert(i,[j.get_wordNum(),j.get_english(),j.get_korean()]) 
+                                print(self.finalRptWord)
+                else:
+                    for i in self.temp[1]:
+                        for j in wordlist:
+                            if i==j.get_wordNum():
+                                self.finalRptWord.insert(i,[j.get_wordNum(),j.get_english(),j.get_korean()]) 
+                                print(self.finalRptWord)
+            except:
+                pass
             
             return self.finalRptWord

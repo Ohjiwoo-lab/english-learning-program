@@ -4,7 +4,7 @@ from PIL import Image, ImageTk
 from global_vari import gl_user,wordlist,rnum,veri
 import random
 import ReviewMenuPage
-#import LearningPage
+import LearningPage
 import MenuPage
 import TestMenu
 
@@ -98,14 +98,14 @@ class LearningMenu(tk.Frame):
         self.master.click_sound(sound)
         self.canvas.delete("all")
         self.destroy()
- #       self.master.switch_frame(LearningPage.LearningPage(self.master,0))
+        self.master.switch_frame(LearningPage.LearningPage(self.master,0))
         
     def next_word(self):
         sound=True
         self.master.click_sound(sound)
         self.canvas.delete("all")
         self.destroy()
-  #      self.master.switch_frame(LearningPage.LearningPage(self.master,1))
+        self.master.switch_frame(LearningPage.LearningPage(self.master,1))
         
     def back_page(self):
         sound=True

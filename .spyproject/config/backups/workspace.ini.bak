@@ -6,5 +6,5 @@ save_non_project_files = False
 
 [main]
 version = 0.2.0
-recent_files = ['ProjectMain.py', 'TestPage.py', '..\\Users\\user\\Downloads\\test.py', 'TestMenu.py', 'CardLevelOne.py']
+recent_files = ['ProjectMain.py', 'ReviewPage.py', '..\\python\\ReviewPage.py', 'UserManager.py', 'UserInfo.py', 'RptWordAlg.py', 'WordInfo.py', 'LearningMenu.py', 'TestPage.py', 'TestMenu.py', 'StartPage.py', 'GameMenu.py', 'LearningPage.py', 'CardMenu.py']
 

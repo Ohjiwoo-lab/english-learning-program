@@ -24,7 +24,7 @@ class ProjectMain(tk.Tk,UserManager,WordManager): #Tk를 상속받아서 생성
         print("Royalty Free Music from Bensound")
         self.music=True
         self._frame=None
-        self.switch_frame(TestMenu.TestInitGui) #프레임 변경을 위함
+        self.switch_frame(StartPage) #프레임 변경을 위함
         
     def init_gui(self): #Tk 이름 설정 및 꾸미기
         self.geometry("1000x800") #1000x800 크기
@@ -47,7 +47,15 @@ class ProjectMain(tk.Tk,UserManager,WordManager): #Tk를 상속받아서 생성
             self.delete_notKnowInfo(update)
             self.insert_knowInfo(update)
             self.set_user()
-           
+            
+    def insert_info(self,know,notknow):
+        try:
+            self.insert_knowInfo(know)
+            self.insert_notknowInfo(notknow)
+            self.set_user()
+        except:
+            pass
+        
     def write_user(self):
         self.insert_user()
     
@@ -70,7 +78,7 @@ class ProjectMain(tk.Tk,UserManager,WordManager): #Tk를 상속받아서 생성
         mixer.music.play()
         
     def music_sound(self):
-        mixer.music.load("C:/english-learning-program/sound/bensound-hey.mp3")
+        mixer.music.load("C:/english-learning-program/sound/Sand Castle - Quincas Moreira.mp3")
         mixer.music.play()
         
     def stop_sound(self):
