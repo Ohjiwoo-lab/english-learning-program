@@ -21,6 +21,8 @@ class ProjectMain(tk.Tk,UserManager,WordManager): #Tk를 상속받아서 생성
         WordManager.__init__(self)
         self.init_gui()
         mixer.init()
+        self.wordread()
+        self.word_img()
         print("Royalty Free Music from Bensound")
         self.music=True
         self._frame=None

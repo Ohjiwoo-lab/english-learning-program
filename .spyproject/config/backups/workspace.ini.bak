@@ -6,5 +6,5 @@ save_non_project_files = False
 
 [main]
 version = 0.2.0
-recent_files = ['ProjectMain.py', 'ReviewPage.py', '..\\python\\ReviewPage.py', 'UserManager.py', 'UserInfo.py', 'RptWordAlg.py', 'WordInfo.py', 'LearningMenu.py', 'TestPage.py', 'TestMenu.py', 'StartPage.py', 'GameMenu.py', 'LearningPage.py', 'CardMenu.py']
+recent_files = ['start.py', 'sprites.py', 'settings.py', '..\\Users\\user\\Downloads\\test (2).py', '..\\Users\\user\\Downloads\\testPart (4) (1)\\wordManager.py', 'WordManager.py', 'WordInfo.py', 'global_vari.py', 'ReviewPage.py', 'LearningMenu.py', 'LearningPage.py', '..\\Users\\user\\Desktop\\supermario (1)\\supermario\\sprites.py', 'ProjectMain.py', '..\\Users\\user\\anaconda3\\lib\\site-packages\\PIL\\ImageTk.py', '..\\Users\\user\\anaconda3\\lib\\tkinter\\__init__.py', 'UserManager.py', 'UserInfo.py', 'CardLevelOne.py', '..\\Users\\user\\Desktop\\supermario (1)\\supermario\\start.py', 'StartPage.py', 'CardGameOut.py', 'CardLevelThree.py', 'CardLevelTwo.py', 'CardMenu.py', 'CardSuccess.py', 'GameMenu.py', 'MenuPage.py', 'ReviewMenuPage.py', 'RptWordAlg.py', 'TestMenu.py', 'TestPage.py']
 

@@ -1,11 +1,10 @@
-
 import pygame
 from settings import *
 
 
 # 지형 생성
 class World:
-    def __init__(self, data):
+    def __init__(self, level):
 
         self.tile_list = []
         self.score = 0
@@ -14,27 +13,32 @@ class World:
         self.book_img = pygame.image.load(BOOK)
 
         self.row_count = 0
-        for row in data:
-            self.col_count = 0
-            for tile in row:
-                if tile == 1:  # 일반 지형(멈춰있는)
-                    self.create()
-                if tile == 2:  # 천천히 양옆으로 움직이는 지형
-                    platform = Platform(self.col_count * TILE_SIZE, self.row_count * TILE_SIZE, -1, 0)
-                    PLATFORM_GROUP.add(platform)
-                if tile == 3:
-                    platform = Platform(self.col_count * TILE_SIZE, self.row_count * TILE_SIZE, 0, 1)
-                    PLATFORM_GROUP.add(platform)
-                if tile == 4:
-                    self.score += 1
-                    coin = Coin(self.col_count * TILE_SIZE + (TILE_SIZE // 2), self.row_count * TILE_SIZE + TILE_SIZE)
-                    COIN_GROUP.add(coin)
-                if tile == 5:
-                    exit = Exit(self.col_count * TILE_SIZE, self.row_count * TILE_SIZE - (TILE_SIZE // 2))
-                    EXIT_GROUP.add(exit)
+        data = []
+        with open(f"level{level}", "r") as f:
+            for i in range(25):
+                lines = f.readline()
+                data.append(lines.strip().split(","))
 
-                self.col_count += 1
-            self.row_count += 1
+            for row in data:
+                self.col_count = 0
+                for tile in row:
+                    if tile == '1':  # 일반 지형(멈춰있는)
+                        self.create()
+                    if tile == '2':  # 천천히 양옆으로 움직이는 지형
+                        platform = Platform(self.col_count * TILE_SIZE, self.row_count * TILE_SIZE, -1, 0)
+                        PLATFORM_GROUP.add(platform)
+                    if tile == '3':
+                        platform = Platform(self.col_count * TILE_SIZE, self.row_count * TILE_SIZE, 0, 1)
+                        PLATFORM_GROUP.add(platform)
+                    if tile == '4':
+                        self.score += 1
+                        coin = Coin(self.col_count * TILE_SIZE + (TILE_SIZE // 2), self.row_count * TILE_SIZE + TILE_SIZE)
+                        COIN_GROUP.add(coin)
+                    if tile == '5':
+                        self.exit = Exit(self.col_count * TILE_SIZE, self.row_count * TILE_SIZE - (TILE_SIZE // 2))
+
+                    self.col_count += 1
+                self.row_count += 1
 
     def create(self):
         img = pygame.transform.scale(self.book_img, (TILE_SIZE, TILE_SIZE))
@@ -49,6 +53,8 @@ class World:
             SCREEN.blit(tile[0], tile[1])
 
 
+
+# 캐릭터 생성
 class Player:
     def __init__(self, x, y):
         self.reset(x, y)
@@ -221,6 +227,7 @@ class Platform(pygame.sprite.Sprite):
             self.move_counter *= -1
 
 
+# 연필 생성
 class Coin(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
@@ -230,6 +237,7 @@ class Coin(pygame.sprite.Sprite):
         self.rect.center = (x, y)
 
 
+# 목숨 생성
 class HEART(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
@@ -239,6 +247,7 @@ class HEART(pygame.sprite.Sprite):
         self.rect.center = (x, y)
 
 
+# 출구 생성
 class Exit(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)

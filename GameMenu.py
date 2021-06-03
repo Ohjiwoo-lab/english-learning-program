@@ -4,7 +4,7 @@ import CardMenu
 import MenuPage
 from global_vari import gl_user,wordlist
 import random
-import start
+import pygame
 class GameMenuPage(tk.Frame):
     
     def __init__(self,master):
@@ -19,14 +19,7 @@ class GameMenuPage(tk.Frame):
         new_background=ImageTk.PhotoImage(resized) #크기조정
         self.canvas.create_image(0,0,anchor=tk.NW,image=new_background)
         self.gui_frame()
-    
-    def draw_page(self):
-        sound=True
-        self.master.click_sound(sound)
-        self.canvas.delete("all")
-        self.destroy()
-        self.master.stop_sound()
-        
+   
     def enter_event(self,e):
         self.anagram_but["image"]=self.click_anagram
     def enter_event1(self,e):
@@ -96,7 +89,7 @@ class GameMenuPage(tk.Frame):
       
         self.click_draw=ImageTk.PhotoImage(Image.open('C:/english-learning-program/image/draw_but1.png'))
         self.but_img1 = ImageTk.PhotoImage(Image.open('C:/english-learning-program/image/draw_but.png'))
-        self.draw_but = tk.Button(self,height=100,width=685,image = self.but_img1,command=self.draw_page)
+        self.draw_but = tk.Button(self,height=100,width=685,image = self.but_img1,command=pygame.sprite.Sprite())
         self.draw_but.place(x=150,y=600)
         
         self.draw_but.bind("<Enter>",self.enter_event1)

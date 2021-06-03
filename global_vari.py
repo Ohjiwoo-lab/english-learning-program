@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun May 16 13:08:09 2021
 
-@author: user
-"""
 from UserInfo import User
 
 rnum=None

@@ -66,6 +66,7 @@ class StartPage(tk.Frame):
         if len(name) != 0 :
             if user_check==False:
                 gl_user.set_init(userlist[len(userlist)-1].get_userNum()+1, name)
+                gl_user.set_list2()
                 self.master.write_user()
                 tk.messagebox.showinfo("정보 확인창","생성 완료.")
       
