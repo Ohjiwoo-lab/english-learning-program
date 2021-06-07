@@ -6,13 +6,14 @@ import time
 from WordManager import WordManager
 from PIL import Image, ImageTk
 from global_vari import wordlist,word_img
-# 메인 클래스
-        
+
+# 메인 클래스      
+pygame.init()
 class Game(WordManager):
     def __init__(self):
         WordManager.__init__(self)
         self.wordread()
-        pygame.init()
+       
         pygame.display.set_caption(TITLE)
         self.run = True
         self.bg_img = pygame.image.load(BACKGROUND)  # 배경 이미지
@@ -30,6 +31,9 @@ class Game(WordManager):
         self.player = Player(50, HEIGHT - 130)  # 캐릭터 생성
         self.card=0
         self.wrong_card=[]
+        self.location=[0,90,180,270]
+        
+        random.shuffle(self.location)
 
         # 각종 버튼 생성
         start_img = pygame.image.load(START)
@@ -110,15 +114,15 @@ class Game(WordManager):
                     self.ylab = 250
 
                     # 선택지 이미지 등장
-                    self.btn1 = Button(self.xlab, self.ylab, self.button_img)
-                    self.btn2 = Button(self.xlab, self.ylab + 90, self.button_img)
-                    self.btn3 = Button(self.xlab, self.ylab + 180, self.button_img)
-                    self.btn4 = Button(self.xlab, self.ylab + 270, self.button_img)
+                    self.btn1 = Button(self.xlab, self.ylab+self.location[0], self.button_img)
+                    self.btn2 = Button(self.xlab, self.ylab + self.location[1], self.button_img)
+                    self.btn3 = Button(self.xlab, self.ylab + self.location[2], self.button_img)
+                    self.btn4 = Button(self.xlab, self.ylab + self.location[3], self.button_img)
 
                     self.running = True
                     while self.running:  # 반복문으로 타이머 동작
                         self.solve()  # 문제 푸는 함수 호출
-
+                    random.shuffle(self.location)
                 self.draw_text('X ' + str(3 - self.heart), self.font_score, blue, TILE_SIZE, 6)  # 현재 목숨 상태 표시
 
             # 3번의 목숨이 다 깎이면 game over
@@ -205,7 +209,7 @@ class Game(WordManager):
 
             if self.btn1.draw():
                 CORRECT_FX.play()
-                self.draw_text(wordlist[self.card].get_english(), self.font4, black, self.xlab + 60, self.ylab + 10)  # 선택지를 선택하였을 때 단어가 사라지는 현상이 발생하여 추가함
+                self.draw_text(wordlist[self.card].get_english(), self.font4, black, self.xlab + 60, self.ylab +self.location[0] + 10)  # 선택지를 선택하였을 때 단어가 사라지는 현상이 발생하여 추가함
                 self.draw_text("CORRECT", self.font, blue, 200, 300)
                 pygame.display.flip()
                 self.running = False
@@ -213,8 +217,8 @@ class Game(WordManager):
 
             elif self.btn2.draw():
                 WRONG_FX.play()
-                self.draw_text(wordlist[self.card].get_english(), self.font4, black, self.xlab + 60, self.ylab + 10)
-                self.draw_text(wordlist[self.wrong_card[0]].get_english(), self.font4, black, self.xlab + 60, self.ylab + 90 + 10)
+                self.draw_text(wordlist[self.card].get_english(), self.font4, black, self.xlab + 60, self.ylab + self.location[0]+10)
+                self.draw_text(wordlist[self.wrong_card[0]].get_english(), self.font4, black, self.xlab + 60, self.ylab + self.location[1] + 10)
                 self.draw_text("WRONG", self.font, red, 250, 300)
                 pygame.display.flip()
                 self.running = False
@@ -223,9 +227,9 @@ class Game(WordManager):
 
             elif self.btn3.draw():
                 WRONG_FX.play()
-                self.draw_text(wordlist[self.card].get_english(), self.font4, black, self.xlab + 60, self.ylab + 10)
-                self.draw_text(wordlist[self.wrong_card[0]].get_english(), self.font4, black, self.xlab + 60, self.ylab + 90 + 10)
-                self.draw_text(wordlist[self.wrong_card[1]].get_english(), self.font4, black, self.xlab + 60, self.ylab + 180 + 10)
+                self.draw_text(wordlist[self.card].get_english(), self.font4, black, self.xlab + 60, self.ylab + self.location[0] + 10)
+                self.draw_text(wordlist[self.wrong_card[0]].get_english(), self.font4, black, self.xlab + 60, self.ylab + self.location[1] + 10)
+                self.draw_text(wordlist[self.wrong_card[1]].get_english(), self.font4, black, self.xlab + 60, self.ylab + self.location[2] + 10)
                 self.draw_text("WRONG", self.font, red, 250, 300)
                 pygame.display.flip()
                 self.running = False
@@ -234,10 +238,10 @@ class Game(WordManager):
 
             elif self.btn4.draw():
                 WRONG_FX.play()
-                self.draw_text(wordlist[self.card].get_english(), self.font4, black, self.xlab + 60, self.ylab + 10)
-                self.draw_text(wordlist[self.wrong_card[0]].get_english(), self.font4, black, self.xlab + 60, self.ylab + 90 + 10)
-                self.draw_text(wordlist[self.wrong_card[1]].get_english(), self.font4, black, self.xlab + 60, self.ylab + 180 + 10)
-                self.draw_text(wordlist[self.wrong_card[2]].get_english(), self.font4, black, self.xlab + 60, self.ylab + 270 + 10)
+                self.draw_text(wordlist[self.card].get_english(), self.font4, black, self.xlab + 60, self.ylab+self.location[0] + 10)
+                self.draw_text(wordlist[self.wrong_card[0]].get_english(), self.font4, black, self.xlab + 60, self.ylab + self.location[1] + 10)
+                self.draw_text(wordlist[self.wrong_card[1]].get_english(), self.font4, black, self.xlab + 60, self.ylab + self.location[2] + 10)
+                self.draw_text(wordlist[self.wrong_card[2]].get_english(), self.font4, black, self.xlab + 60, self.ylab + self.location[3] + 10)
                 self.draw_text("WRONG", self.font, red, 250, 300)
                 pygame.display.flip()
                 self.running = False
@@ -245,10 +249,10 @@ class Game(WordManager):
                 time.sleep(1)
         try:
             # 실제 선택지 단어 등장
-            self.draw_text(wordlist[self.card].get_english(), self.font4, black, self.xlab + 60, self.ylab + 10)
-            self.draw_text(wordlist[self.wrong_card[0]].get_english(), self.font4, black, self.xlab + 60, self.ylab + 90 + 10)
-            self.draw_text(wordlist[self.wrong_card[1]].get_english(), self.font4, black, self.xlab + 60, self.ylab + 180 + 10)
-            self.draw_text(wordlist[self.wrong_card[2]].get_english(), self.font4, black, self.xlab + 60, self.ylab + 270 + 10)
+            self.draw_text(wordlist[self.card].get_english(), self.font4, black, self.xlab + 60, self.ylab + self.location[0]+10)
+            self.draw_text(wordlist[self.wrong_card[0]].get_english(), self.font4, black, self.xlab + 60, self.ylab + self.location[1] + 10)
+            self.draw_text(wordlist[self.wrong_card[1]].get_english(), self.font4, black, self.xlab + 60, self.ylab + self.location[2] + 10)
+            self.draw_text(wordlist[self.wrong_card[2]].get_english(), self.font4, black, self.xlab + 60, self.ylab + self.location[3] + 10)
         except:
             pass
         
@@ -303,6 +307,6 @@ class Button:
 
 g = Game()
 while g.run:
-    g.new()
-
+       g.new()
+    
 pygame.quit()

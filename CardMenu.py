@@ -22,7 +22,6 @@ class CardMenuPage(tk.Frame):
         resized=background.resize((1000,800),Image.ANTIALIAS)
         new_background=ImageTk.PhotoImage(resized) #크기조정
         self.canvas.create_image(0,0,anchor=tk.NW,image=new_background)
-
         self.gui_frame()
 
     def next_one_page(self):
@@ -81,12 +80,15 @@ class CardMenuPage(tk.Frame):
         self.img6 = tk.PhotoImage(file="image/redo.png")
         self.btn_back = tk.Button(self, image=self.img6, relief='flat', command=self.disable_label, width=40, height=40, compound="c")
         self.btn_back.place(x=820, y=620)
+   
     def back_page(self):
         sound=True
         self.master.click_sound(sound)
         self.canvas.delete("all")
         self.destroy()
+        self.master.stop_sound()
         self.master.switch_frame(GameMenu.GameMenuPage)
+        
     
     def disable_label(self):
         self.msg_label.destroy()

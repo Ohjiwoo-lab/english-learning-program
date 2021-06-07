@@ -8,6 +8,7 @@ import threading
 import TestMenu
 import CardMenu
 from time import sleep
+
 try:
     import Tkinter as tk
 except:
@@ -23,7 +24,10 @@ class ProjectMain(tk.Tk,UserManager,WordManager): #Tk를 상속받아서 생성
         mixer.init()
         self.wordread()
         self.word_img()
-        print("Royalty Free Music from Bensound")
+        self.background_music=mixer.Sound("C:/english-learning-program/sound/01. The Alphabet Song.mp3")
+        self.background_music.set_volume(0.2)
+        self.click=mixer.Sound("C:/english-learning-program/sound/click_sound1.mp3")
+        self.click.set_volume(0.5)
         self.music=True
         self._frame=None
         self.switch_frame(StartPage) #프레임 변경을 위함
@@ -42,7 +46,7 @@ class ProjectMain(tk.Tk,UserManager,WordManager): #Tk를 상속받아서 생성
  
         self._frame=new_frame
         self._frame.pack()
-    
+        
     def write_notKnow(self,update): #아는것 추가,틀린것 삭제
         
         if update is not None:
@@ -71,21 +75,20 @@ class ProjectMain(tk.Tk,UserManager,WordManager): #Tk를 상속받아서 생성
     
     def click_sound(self,sound): 
         if sound==True:
-            threading.Thread(target=playsound, args=('C:/english-learning-program/sound/click_sound1.mp3',), daemon=True).start()
-            sleep(0.3)
+            self.click.play()
             sound=False
-    
-    def card_sound(self): 
-        mixer.music.load("C:/english-learning-program/sound/coin_sound1.wav")
-        mixer.music.play()
+            
+    # def card_back_sound(self): 
+    #     mixer.music.load("C:/english-learning-program/sound/card_sound.mp3")
+    #     mixer.music.play()
+        
         
     def music_sound(self):
-        mixer.music.load("C:/english-learning-program/sound/Sand Castle - Quincas Moreira.mp3")
-        mixer.music.play()
+        self.background_music.play(-1)
         
     def stop_sound(self):
-        mixer.music.stop()
-        
+        self.background_music.stop()
+    
     def exit_(self):
         sound=True
         self.click_sound(sound)
@@ -94,6 +97,6 @@ class ProjectMain(tk.Tk,UserManager,WordManager): #Tk를 상속받아서 생성
         
         exit()
 
-if __name__=="__main__":
-    python_project=ProjectMain()
-    python_project.mainloop()
+python_project=ProjectMain()
+
+python_project.mainloop()

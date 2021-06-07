@@ -26,6 +26,8 @@ class LearningPage(tk.Frame):
         
      # 상단 학습하기 버튼
     def learn(self):
+        self.master.click_sound(True)
+        
         self.com_text.place(x=90,y=431)
         self.num=0
         self.learn_but["bg"]="orange"
@@ -40,6 +42,8 @@ class LearningPage(tk.Frame):
             self.word_frame.destroy()
             # 상단 단어카드 버튼
     def word_card(self):
+        self.master.click_sound(True)
+        
         self.learn_but["bg"]="white"
         self.word_but["bg"]="orange"
         self.word_frame=tk.Frame(self)
@@ -62,11 +66,14 @@ class LearningPage(tk.Frame):
     def input_data(self,e):
         self.com_text.destroy()
     def test(self):
+        self.master.click_sound(True)
+        
         self.destroy()
         self.master.switch_frame(TestMenu.TestInitGui)
         
     def press_left(self):
         try:
+            self.master.click_sound(True)
             if self.page_count > 0 :
                 self.right.place(x=932, y=410)
                 #self.disabled_word()
@@ -85,6 +92,7 @@ class LearningPage(tk.Frame):
         #self.page_count
        
         try:
+            self.master.click_sound(True)
             if self.page_count <= len(wordlist) :
                 if self.Learn_wronglabel:
                     self.Learn_wronglabel.destroy()

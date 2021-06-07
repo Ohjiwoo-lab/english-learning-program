@@ -41,6 +41,8 @@ class LevelTwo(tk.Frame):
 
     def back_page(self):
         self.canvas.delete("all")
+        
+        self.master.click_sound(True)
         self.destroy()
         self.master.switch_frame(CardMenu.CardMenuPage)
 
@@ -62,7 +64,8 @@ class LevelTwo(tk.Frame):
     def click(self,index):
          global key1
          global key2
-         self.master.card_sound()
+         
+         self.master.click_sound(True)
          self.buttons[index]['text']=self.key[index]
          try:
              if self.card_count==0:

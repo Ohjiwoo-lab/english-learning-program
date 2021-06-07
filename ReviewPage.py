@@ -65,6 +65,7 @@ class ReviewPage(tk.Frame):
         self.rstExitBt.destroy()
         
     def next_page(self,e):
+        self.master.click_sound(True)
         self.rnwWord()
         self.canvas.delete("all")
         self.destroy()
@@ -104,6 +105,7 @@ class ReviewPage(tk.Frame):
             self.master.write_notKnow(knowList)
          
     def showRstandExt_Bt(self):
+        self.master.click_sound(True)
         #결과보기 나타남
         self.rstBtImg=Image.open("C:/english-learning-program/image/resultBtImage.png")
         resized_rstBtImg=self.rstBtImg.resize((100,50),Image.ANTIALIAS)
@@ -120,7 +122,8 @@ class ReviewPage(tk.Frame):
         self.exitBt.bind('<Button-1>',self.next_page)
         print("nxtWord button destoyed:please check the answer")
     
-    def result(self):      
+    def result(self):
+        self.master.click_sound(True)
         self.rstCanvas=tk.Canvas(self,width=400,height=600,bg="white") #4칸 빼면 880
         self.rstCanvas.place(x=290,y=50)
         self.rstBg1=tk.Canvas(self,width=380,height=580,bg="#FCD4B4")
@@ -154,11 +157,13 @@ class ReviewPage(tk.Frame):
         self.rstExitBt.place(x=570,y=580)
     
     def ok_click(self):
+        self.master.click_sound(True)
         self.destroy()
         self.master.switch_frame(LearningMenu.LearningMenu)
         
         
     def restart(self):
+        self.master.click_sound(True)
         self.gui_frame()
         
     def gui_frame(self):

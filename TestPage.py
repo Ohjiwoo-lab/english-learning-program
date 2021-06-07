@@ -30,6 +30,8 @@ class Test(tk.Frame):
         self.set_frame()
 
     def back_page(self):
+        self.master.click_sound(True)
+        
         self.destroy()
         self.master.switch_frame(LearningMenu.LearningMenu)
         #뜻을 입력할수 있는 엔트리박스 세팅(for문으로 하면 값을 저장을 못해서 이렇게 했어요)
@@ -89,6 +91,8 @@ class Test(tk.Frame):
         
          self. mainloop()
     def submit_and_showResult(self):
+         self.master.click_sound(True)
+        
 #         #제출한 답 저장(입력받은 한글뜻은 뒤에 \n이 붙어야 채점을 올바르게 해서 붙임)
          
          self.writtenWord.clear()
@@ -158,6 +162,7 @@ class Test(tk.Frame):
         
 #     #결과출력페이지나가기버튼 누르면 페이지를 지운다                
     def destroy_resultPage(self):
+        self.master.click_sound(True)
         self.result_canvas.destroy()
         self.result_canvas2.destroy()
         self.result_exitBt.destroy()

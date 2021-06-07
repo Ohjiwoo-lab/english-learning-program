@@ -61,7 +61,9 @@ class LevelThree(tk.Frame):
     def click(self,index):
          global key1
          global key2
-         self.master.card_sound()
+         sound=True
+         
+         self.master.click_sound(True)
          self.buttons[index]['text']=self.key[index]
          try:
              if self.card_count==0:

@@ -15,6 +15,7 @@ class TestInitGui(tk.Frame):
         self.set_frame()
         
     def next_page(self):
+        self.master.click_sound(True)
         self.destroy()
         self.master.switch_frame(TestPage.Test)
         
@@ -59,6 +60,8 @@ class TestInitGui(tk.Frame):
         
     #사용방법버튼눌럿을때 실행되는 메소드    
     def howToUse_Create(self):
+        self.master.click_sound(True)
+        
         #사용방법 바탕 캔버스(하얀색)
         self.HTU_canvas=tk.Canvas(self,width=400,height=400,bg='white')
         self.HTU_canvas.place(x=300,y=50)
@@ -78,5 +81,7 @@ class TestInitGui(tk.Frame):
         self.HTU_exitBt.place(x=650,y=400)
     #사용방법나가기버튼을 눌럿을때 실행되는 메소드
     def howToUse_Exit(self):
+        self.master.click_sound(True)
+        
         self.HTU_canvas.destroy()
         self.HTU_exitBt.destroy()

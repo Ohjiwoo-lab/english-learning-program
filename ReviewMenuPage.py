@@ -15,6 +15,7 @@ class ReviewMenu(tk.Frame):
         self.gui_frame()
             
     def howToUse(self,e):
+        self.master.click_sound(True)
         self.explain_frame=tk.Frame(self)
         self.explain_frame.place(x=255,y=200,width=500,height=260)
         
@@ -31,10 +32,12 @@ class ReviewMenu(tk.Frame):
         bt.place(x=220,y=210)
         
     def back_page(self):
+        self.master.click_sound(True)
         self.explain_canvas.delete("all")
         self.explain_frame.destroy()
   
     def next_page(self,e):
+        self.master.click_sound(True)
         self.canvas.delete("all")
         self.destroy()
         self.master.switch_frame(ReviewPage.ReviewPage)

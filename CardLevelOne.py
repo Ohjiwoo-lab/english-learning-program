@@ -6,6 +6,7 @@ import CardGameOut
 from global_vari import wordlist
 import random
 from time import sleep
+from pygame import *
 import CardSuccess
 
 class LevelOne(tk.Frame):
@@ -26,7 +27,8 @@ class LevelOne(tk.Frame):
         self.key1_button=None
         self.key2_button=None
         self.card_count =0
-
+        
+        
         background=Image.open("C:/english-learning-program/image/background.png")
         #이미지 크기 재조정
         resized=background.resize((1000,800),Image.ANTIALIAS)
@@ -61,7 +63,8 @@ class LevelOne(tk.Frame):
     def click(self,index):
          global key1
          global key2
-         self.master.card_sound()
+         self.master.click_sound(True)
+         sound=True
          self.buttons[index]['text']=self.key[index]
          try:
              if self.card_count==0:
@@ -156,10 +159,10 @@ class LevelOne(tk.Frame):
         
         tk.Label(self, text='제한 시간(3분)', font=fontStyle2, bg='white', fg='black').place(x=140, y=160)
         self.score=tk.Label(self, textvariable=self.text, font=fontStyle, bg='white', fg='black').place(x=750, y=140)
-
+        butfont = tkFont.Font(size=15, weight='bold')
         for i in range(3):
             for j in range(4):
-                self.buttons.append(tk.Button(self, bg="#8FAADC", width=23, height=8,  command=lambda index=cardCount: self.click(index)))
+                self.buttons.append(tk.Button(self, bg="#8FAADC",font=butfont, width=13, height=5,  command=lambda index=cardCount: self.click(index)))
                 self.buttons[cardCount].place(x=xvar, y=yvar)
                 xvar = xvar + 182
                 cardCount += 1

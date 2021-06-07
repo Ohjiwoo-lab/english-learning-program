@@ -65,7 +65,10 @@ class StartPage(tk.Frame):
             tk.messagebox.showinfo("정보 확인창","있는 정보입니다. \n Ok버튼을 통해 학습을 시작해주세요.")
         if len(name) != 0 :
             if user_check==False:
-                gl_user.set_init(userlist[len(userlist)-1].get_userNum()+1, name)
+                if userlist is None:
+                    gl_user.set_init(0,name)
+                else:
+                    gl_user.set_init(userlist[len(userlist)-1].get_userNum()+1, name)
                 gl_user.set_list2()
                 self.master.write_user()
                 tk.messagebox.showinfo("정보 확인창","생성 완료.")

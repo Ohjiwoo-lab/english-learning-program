@@ -42,7 +42,7 @@ class UserManager:
                          if userlist[i].get_userNum() == info[j][0]:
                              userlist[i].set_notKnow(info[j][1])
                  print(gl_user.get_notKnow())
-                 print(userlist[0].get_know())
+                
          finally:
             self.python_db.close()
          
