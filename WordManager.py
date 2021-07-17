@@ -6,7 +6,7 @@ Created on Fri May 14 18:46:47 2021
 """
 
 from PIL import Image, ImageTk
-from WordInfo import Word
+from wordInfo import Word
 import pymysql
 from global_vari import wordlist,word_img
 

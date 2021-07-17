@@ -1,5 +1,5 @@
 
-from UserInfo import User
+from userInfo import User
 
 rnum=None
 gl_user=User()

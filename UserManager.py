@@ -1,4 +1,4 @@
-from UserInfo import User
+from userInfo import User
 from global_vari import gl_user,userlist
 import pymysql
 import copy
